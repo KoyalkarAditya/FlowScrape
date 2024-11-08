@@ -4,12 +4,15 @@ import {
   CoinsIcon,
   HomeIcon,
   Layers2Icon,
+  MenuIcon,
   ShieldCheckIcon,
 } from "lucide-react";
 import Logo from "./Logo";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { usePathname } from "next/navigation";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { useState } from "react";
 
 const routes = [
   {
@@ -46,7 +49,7 @@ const DesktopSideBar = () => {
         <Logo />
       </div>
       <div className="p-2">Todo credits</div>
-      <div className="flex flex-col p-2 ">
+      <div className="flex flex-col p-2 gap-2 ">
         {routes.map((route) => (
           <Link
             className={buttonVariants({
@@ -66,6 +69,51 @@ const DesktopSideBar = () => {
     </div>
   );
 };
+export function MobileSidebar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const activeRoute =
+    routes.find(
+      (route) => route.href.length > 0 && pathname.includes(route.href)
+    ) || routes[0];
+  return (
+    <div className="block border-separate bg-background md:hidden">
+      <nav className="container flex items-center justify-between px-6">
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger>
+            <Button variant={"ghost"} size={"icon"}>
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            className="w-[400px] sm:w-[540px] space-y-4 "
+            side={"left"}
+          >
+            {" "}
+            <div className="flex flex-col p-4 gap-2">
+              {routes.map((route) => (
+                <Link
+                  className={buttonVariants({
+                    variant:
+                      activeRoute.href == route.href
+                        ? "sidebarActiveItem"
+                        : "sidebarItem",
+                  })}
+                  key={route.href}
+                  href={route.href}
+                  onClick={() => setIsOpen((prev) => !prev)}
+                >
+                  <route.icon size={20} />
+                  {route.label}
+                </Link>
+              ))}
+            </div>
+          </SheetContent>
+        </Sheet>
+      </nav>
+    </div>
+  );
+}
 
 export default DesktopSideBar;
 
