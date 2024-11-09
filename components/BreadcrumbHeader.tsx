@@ -17,7 +17,7 @@ const BreadcrumbHeader = () => {
     <div className="flex items-center flex-start">
       <MobileSidebar />
       <Breadcrumb>
-        <BreadcrumbLink>
+        <BreadcrumbList>
           {paths.map((path, index) => (
             <React.Fragment key={index}>
               <BreadcrumbItem>
@@ -25,9 +25,10 @@ const BreadcrumbHeader = () => {
                   {path == "" ? "home" : path}
                 </BreadcrumbLink>
               </BreadcrumbItem>
+              <BreadcrumbSeparator />
             </React.Fragment>
           ))}
-        </BreadcrumbLink>
+        </BreadcrumbList>
       </Breadcrumb>
     </div>
   );
