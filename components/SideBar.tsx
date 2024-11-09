@@ -59,7 +59,7 @@ const DesktopSideBar = () => {
                   : "sidebarItem",
             })}
             key={route.href}
-            href={route.href}
+            href={route.href || "/"}
           >
             <route.icon size={20} />
             {route.label}
@@ -100,7 +100,7 @@ export function MobileSidebar() {
                         : "sidebarItem",
                   })}
                   key={route.href}
-                  href={route.href}
+                  href={route.href || "/"}
                   onClick={() => setIsOpen((prev) => !prev)}
                 >
                   <route.icon size={20} />
@@ -116,5 +116,3 @@ export function MobileSidebar() {
 }
 
 export default DesktopSideBar;
-
-//19.48
