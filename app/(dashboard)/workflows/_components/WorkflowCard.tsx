@@ -54,7 +54,7 @@ const WorkflowCard = ({ workflow }: Props) => {
           <div>
             <h3 className="text-base font-bold text-muted-foreground flex items-center">
               <Link
-                href={`/workflows/editor/${workflow.id}`}
+                href={`/workflow/editor/${workflow.id}`}
                 className="hover:underline flex items-center "
               >
                 {workflow.name}
